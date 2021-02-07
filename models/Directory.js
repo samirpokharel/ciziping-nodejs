@@ -1,5 +1,7 @@
 const { Schema, model } = require("mongoose");
-const noteSchema = require("./Note");
+const joi = require("joi");
+joi.objectId = require("joi-objectid")(joi);
+const { noteSchema } = require("./Note");
 
 const directorySchema = new Schema(
   {
@@ -23,7 +25,7 @@ const Directory = model("Directory", directorySchema);
 function validateDirectory(body) {
   const schema = joi.object({
     name: joi.string().min(3).required(),
-    user: joi.string().required().min(5).max(300),
+    user: joi.objectId().required(),
   });
   return schema.validate(body);
 }

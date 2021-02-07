@@ -1,4 +1,7 @@
-const { Schema } = require("mongoose");
+// const { Schema, model } = require("mongoose");
+const { Schema, model } = require("mongoose");
+
+const joi = require("joi");
 
 const noteSchema = new Schema(
   {
@@ -20,4 +23,14 @@ const noteSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = noteSchema;
+const Note = model("Note", noteSchema);
+
+function validateNote(body) {
+  const schema = joi.object({
+    title: joi.string().min(3),
+    tags: joi.array().required(),
+    content: joi.string().required().min(6).max(400),
+  });
+  return schema.validate(body);
+}
+module.exports = { Note, noteSchema, validateNote };
