@@ -7,13 +7,14 @@ const {
   getAllDirectory,
   createNote,
   deleteNote,
+  getAllNotes,
   //   updateNote,
 } = require("../controller/directory_controller");
 const router = Router();
 
 router.route("/").get(auth, getAllDirectory).post(auth, createDirectory);
 router.route("/:did").put(auth, editDirectory).delete(auth, deleteDirectory);
-router.route("/:did/notes").post(auth, createNote);
+router.route("/:did/notes").post(auth, createNote).get(auth, getAllNotes);
 
 router.route("/:did/notes/:nid").delete(auth, deleteNote);
 // .put(updateNote);

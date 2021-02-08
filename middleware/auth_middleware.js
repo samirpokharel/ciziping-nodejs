@@ -16,7 +16,7 @@ const auth = async (req, res, next) => {
         .status(400)
         .send(errorResponsObj("Request failed Invalid Token"));
   } catch (ex) {
-    res.status(400).send(errorResponsObj("Invalid Token"));
+    return res.status(400).send(errorResponsObj("Invalid Token"));
   }
   next();
 };
